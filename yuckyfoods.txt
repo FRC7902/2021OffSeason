@@ -1,2 +1,2 @@
-Foods/Spices that I don't like:
-
+Foods/Spices that We don't like:
+- Tumeric
