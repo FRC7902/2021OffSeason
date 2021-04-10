@@ -3,3 +3,4 @@ Foods/Spices that We don't like:
 - Zucchini
 - Bitter melon
 - Cilantro
+- Sea cucumbers
