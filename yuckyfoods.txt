@@ -2,3 +2,4 @@ Foods/Spices that We don't like:
 - Tumeric
 - Zucchini
 - Bitter melon
+- Cilantro
