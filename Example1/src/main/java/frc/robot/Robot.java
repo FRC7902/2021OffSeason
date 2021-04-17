@@ -2,13 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-
-//HELLO
-//Change 1
-
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PWMSparkMax;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotGearing;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotMotor;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotWheelSize;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -24,15 +38,57 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  //Motors
+  private final PWMSparkMax m_leftMotor_front = new PWMSparkMax(0);
+  private final PWMSparkMax m_leftMotor_rear = new PWMSparkMax(1);
+  private final PWMSparkMax m_rightMotor_front = new PWMSparkMax(2);
+  private final PWMSparkMax m_rightMotor_rear = new PWMSparkMax(3);
+
+  private final SpeedControllerGroup m_leftSide = new SpeedControllerGroup(m_leftMotor_front, m_leftMotor_rear);
+  private final SpeedControllerGroup m_rightSide = new SpeedControllerGroup(m_rightMotor_front, m_rightMotor_rear);
+
+  private final Timer m_timer = new Timer();
+
+  //Encoders
+  private Encoder m_leftEncoder = new Encoder(0, 1);
+  private Encoder m_rightEncoder = new Encoder(2, 3);
+  private EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+  private EncoderSim m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+
+  //Gyros
+  private AnalogGyro m_gyro = new AnalogGyro(1);
+  private AnalogGyroSim m_gyroSim = new AnalogGyroSim(m_gyro);
+
+  //Joystick
+  private final Joystick m_stick = new Joystick(0);
+
+  //Simulation
+  public final Field2d m_field = new Field2d();
+  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d(), new Pose2d(5, 5, new Rotation2d()));
+  private DifferentialDrivetrainSim m_driveTrainSim = DifferentialDrivetrainSim.createKitbotSim(
+    KitbotMotor.kDualCIMPerSide, 
+    KitbotGearing.k10p71, 
+    KitbotWheelSize.SixInch, null);
+
+  //Constants
+  double kEncoderResolution = 360.0; 
+  double kWheelRadius = 3.0;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+    //Set up Autonomous Options
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData("Field", m_field);
+
+    //Set up Encoder
+    m_leftEncoder.setDistancePerPulse(2 * Math.PI * 3 / kEncoderResolution);
+    m_rightEncoder.setDistancePerPulse(2 * Math.PI * 3 / kEncoderResolution);
   }
 
   /**
@@ -43,7 +99,21 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    m_driveTrainSim.setInputs(m_leftSide.get() * RobotController.getInputVoltage(), m_rightSide.get() * RobotController.getInputVoltage());
+
+    m_driveTrainSim.update(0.02);
+
+    m_leftEncoderSim.setDistance(m_driveTrainSim.getLeftPositionMeters());
+    m_leftEncoderSim.setRate(m_driveTrainSim.getLeftVelocityMetersPerSecond());
+    m_rightEncoderSim.setDistance(m_driveTrainSim.getRightPositionMeters());
+    m_rightEncoderSim.setRate(m_driveTrainSim.getRightVelocityMetersPerSecond());
+    m_gyroSim.setAngle(-m_driveTrainSim.getHeading().getDegrees());
+
+    m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+
+    m_field.setRobotPose(m_odometry.getPoseMeters());
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -60,6 +130,9 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+
+    m_timer.reset();
+    m_timer.start();
   }
 
   /** This function is called periodically during autonomous. */
@@ -71,7 +144,15 @@ public class Robot extends TimedRobot {
         break;
       case kDefaultAuto:
       default:
-        // Put default auto code here
+        if (m_timer.get() < 1.0) {
+          m_leftSide.set(1);
+          m_rightSide.set(1);
+        } else if (m_timer.get() < 3.0) {
+          m_rightSide.set(-1);
+        } else {
+          m_leftSide.stopMotor();
+          m_rightSide.stopMotor();
+        }
         break;
     }
   }
@@ -82,7 +163,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    m_leftSide.set(-m_stick.getY() + m_stick.getX());
+    m_rightSide.set(-m_stick.getY() - m_stick.getX());
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
