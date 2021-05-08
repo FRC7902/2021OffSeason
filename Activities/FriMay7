@@ -10,7 +10,7 @@ b) System.out.println();
 c) system.out.println();
 d) System.Out.Println();
 e) None of the above
-Ans:
+Ans: b
 
 
 Q2:
@@ -20,7 +20,7 @@ b) int = (int) 1;
 c) int x = 1;
 d) x = (int) 1;
 e) None of the above
-Ans:
+Ans: c
 
 
 Q3:
@@ -32,7 +32,7 @@ b) 1
 c) 23
 d) 231
 e) It will give an error
-Ans:
+Ans: a
 
 
 Q4:
@@ -41,7 +41,7 @@ int x = 3.21;
 a) True
 b) false
 c) The computer will explode
-Ans:
+Ans: a
 
 
 Q5:
@@ -50,7 +50,7 @@ double x = 3;
 a) True
 b) false
 c) The computer will explode
-Ans:
+Ans: b
 
 Q6:
 True or false: This will give an error
@@ -59,7 +59,7 @@ double x = 3;
 a) True
 b) false
 c) The computer will explode
-Ans:
+Ans: b
 
 Q7: 
 What is the output of this code:
@@ -71,7 +71,7 @@ b) 1
 c) 0.0
 d) 1.0
 e) 0.75
-Ans:
+Ans: e
 
 Q8:
 What is the output of this code:
@@ -80,7 +80,7 @@ a) 1
 b) 2
 c) 2.0
 d) 4
-Ans:
+Ans: c
 
 Q9: 
 True or False: This will give an error 
@@ -89,7 +89,7 @@ out.println("Hello World");
 a) True
 b) False
 c) The computer will explode
-Ans:
+Ans: b
 
 
 Q10:
@@ -101,7 +101,7 @@ b) 0
 c) 0.0
 d) 0.5
 e) None of the above
-Ans:
+Ans: b
 
 
 BONUS QUESTION:
@@ -112,7 +112,7 @@ b) 2.0
 c) 3.0
 d) 1
 e) None of the above
-Ans: 
+Ans: e
 
 
 
