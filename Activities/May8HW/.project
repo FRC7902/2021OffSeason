@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< Updated upstream
 	<name>May8HW</name>
 	<comment>Project May8HW created by Buildship.</comment>
+=======
+	<name>CommandSim</name>
+	<comment>Project CommandSim created by Buildship.</comment>
+>>>>>>> Stashed changes
 	<projects>
 	</projects>
 	<buildSpec>
@@ -16,7 +21,11 @@
 	</natures>
 	<filteredResources>
 		<filter>
+<<<<<<< Updated upstream
 			<id>1620580287924</id>
+=======
+			<id>1620580110911</id>
+>>>>>>> Stashed changes
 			<name></name>
 			<type>30</type>
 			<matcher>
