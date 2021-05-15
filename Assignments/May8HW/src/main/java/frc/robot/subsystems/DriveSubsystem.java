@@ -75,6 +75,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftEncoderSim = new EncoderSim(m_leftEncoder);
     m_rightEncoderSim = new EncoderSim(m_rightEncoder);
     m_gyroSim = new AnalogGyroSim(m_gyro);
+
+    // Invert speed controller groups.
+    m_leftMotors.setInverted(true);
+    m_rightMotors.setInverted(true);
   }
 
   @Override
@@ -124,6 +128,25 @@ public class DriveSubsystem extends SubsystemBase {
     m_driveTrainSim.setPose(pose);
     m_odometry.resetPosition(pose, new Rotation2d());
 
+  }
+
+
+  // drive using the joystick
+  public void joystickDrive(double x, double y) {
+    m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
+    m_rightMotors.set(-y - x * Constants.DriveConstants.kTurnSpeed);
+  }
+
+  // drive using raw inputs
+  public void rawDrive(double left, double right) {
+    m_leftMotors.set(left);
+    m_rightMotors.set(right);
+  }
+  
+  // stop the motors
+  public void stopMotors() {
+    m_leftMotors.stopMotor();
+    m_rightMotors.stopMotor();
   }
 
 
