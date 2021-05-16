@@ -73,7 +73,7 @@ public class App {
 
         //print the length of the string
 
-        int hey = hi.length (); or // length.hi ();
+        int hey = hi.length (); 
         System.out.println (hey);
 
         //Q5 Remember those 2 ints you made in question 3?
@@ -84,10 +84,12 @@ public class App {
         System.out.println (Math.min (c, d));
 
         //Print the square root of one of the them (it can be a decimal)
-        System.out.println (Math.sqrt ((double)d);
+        System.out.println (Math.sqrt(d));
         
         //Subtract 999 from one of the variables in 2 different ways
 
+        d -= 999;
+        d = d-999;
         int asd = d - 999;
         System.out.println (d - 999);
 
