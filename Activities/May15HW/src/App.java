@@ -69,8 +69,8 @@ public class App {
         // You can refer to things if you need help (though it is possible to not refer
         // to the chart)
 
-        char c = 97;
-        while (c < 123) {
+        char c = (int)'a';
+        while (c < 'z') {
             System.out.println(c);
             c++;
         }
