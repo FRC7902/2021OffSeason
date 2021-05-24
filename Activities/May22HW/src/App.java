@@ -8,6 +8,7 @@ public class App {
          * Content:
          * - For Loops
          * - For Each Loops
+         * - Break
          * - Arrays
          * 
          * Have fun!
@@ -26,6 +27,18 @@ public class App {
 
 
         //Q3 Using nested for loops, print out the multiplication tables from 1x1=1 to 12x12=144
+
+
+
+
+
+        //Q3.5 Using a break statement, count from 1 to 10. 
+
+        
+
+        //Q3.75 Using a continue statement, count from 1 to 50, but skip over every multiple of 5.
+
+
 
 
         //Q4 Make an array of strings and fill it with at least 4 random names
