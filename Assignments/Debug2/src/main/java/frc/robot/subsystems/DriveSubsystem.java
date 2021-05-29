@@ -164,8 +164,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   //drive the robot
   public void drive(double x, double y){
-    m_leftMotors.set(y + x * Constants.DriveConstants.kTurnSpeed);
-    m_rightMotors.set(y-x * Constants.DriveConstants.kTurnSpeed);
+    m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
+    m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
 
   }
 
