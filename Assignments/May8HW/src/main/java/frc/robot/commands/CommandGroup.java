@@ -9,7 +9,7 @@ public class CommandGroup extends SequentialCommandGroup {
             new DriveToDistance(2, driveSubsystem),
             new TurnToAngle(180, driveSubsystem),
             new DriveToDistance(2, driveSubsystem),
-            new TurnToAngle(180, driveSubsystem)
+            new TurnToAngle(0, driveSubsystem)
         );
     }
 }
