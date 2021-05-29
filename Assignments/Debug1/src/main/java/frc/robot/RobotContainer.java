@@ -42,7 +42,7 @@ public class RobotContainer {
   XboxController m_driverController = 
     new XboxController(0);
 
-  private final Joystick m_stick = new Joystick(1);
+  private final Joystick m_stick = new Joystick(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
