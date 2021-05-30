@@ -61,7 +61,7 @@ public class App {
         System.out.println(random.length);
 
         // Q9 Using a normal for loop, print out the names from Q4.
-        for (int xyz = 0; xyz = random.length; xyz++) {
+        for (int xyz = 0; xyz < random.length; xyz++) {
             String var = random[xyz];
             System.out.println(var);
         }
@@ -75,7 +75,7 @@ public class App {
         // Make and fill an array of 10 integers.
         int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         // Using a for loop, loop through the array and make any odd numbers even.
-        for (int xz = 0; xz = numbers.length; xz++) {
+        for (int xz = 0; xz < numbers.length; xz++) {
             int vars = numbers[xz];
             if (vars % 2 == 0) {
                 vars++;
