@@ -50,7 +50,7 @@ public class App {
         boolean iii = var <= 16 && var%2==0;
 
         //Q11 Make a boolean that records whether the integer is a multiple of 5 or is not a multiple of 3
-        boolean iiii = var%%5==0 || var%3 != 0;
+        boolean iiii = var%5==0 || var%3 != 0;
 
         //Q12 If the integer is greater than 7, print out "Hello"
         //If it is equal to 7, print out "Goodbye"
@@ -62,7 +62,7 @@ public class App {
             System.out.println ("Goodbye");
         }
         else {
-            System.out.println ("Bonjour")
+            System.out.println ("Bonjour");
         }
 
         //Q13 Make an array of 6 integers (fill it with some numbers)
@@ -72,7 +72,7 @@ public class App {
         //If both are even, print out "Maybe"
         //If both are odd, print out "Maybe not"
         //Otherwise, print out "No"
-        if (numbers[1]%2==1 && numbers[2]%2==0) {
+        if (numbers[0]%2==1 && numbers[1]%2==0) {
             System.out.println ("Yes");
         } 
         else if (numbers[1]%2==0 && numbers[2]%2==0) {
@@ -83,13 +83,13 @@ public class App {
         }
 
         //Q15 Double the 3rd number until it is greater than 1000.
-        while (numbers[3]<=1000) {
-            numbers[3]*=2;//is this right?
+        while (numbers[2]<=1000) {
+            numbers[2]*=2;//is this right?
         }
 
         //Q16 Repeatedly subtract 5 from the 4th number until it is negative
-        while (numbers[4]>=0) {
-            numbers[4] -= 5;
+        while (numbers[3]>=0) {
+            numbers[3] -= 5;
         }
 
         //Q17 Using a for loop, print out all the numbers in the array
@@ -116,14 +116,14 @@ public class App {
 
         //Q21 Print out all the city names that are longer than 7 letters
         for (String a : random) {
-            if (a.length > 7) {
+            if (a.length() > 7) {
                 System.out.println (a);
             }
         }
 
         //Q22 Change all of the city names to "Toronto"
-        random [1] = "Toronto";
-        random [3] = "Toronto";
+        random [0] = "Toronto";
+        random [2] = "Toronto";
 
         //NOTE: Make all your methods outside the main method
 
@@ -141,7 +141,7 @@ public class App {
 
 
     }
-    public static void hi (int x) {
+    public static boolean hi (int x) {
         if (x%2==0){
             return true;
         }
@@ -149,11 +149,31 @@ public class App {
             return false;
         }
     }
-    public static void hello int []{
-        //for (int cc : )
-        //i don't know how to do question 24
+
+
+    public static void hello(int[] inputArray){
+
+        for(int i = 0; i < inputArray.length; i++){
+            while (inputArray[i]<=1000) {
+                inputArray[i]*=2;//is this right
+            }
+        }
+
+
+        
     }
-    public static void hey { 
-        //i don't understand question 25
+        
+    
+    public static int[] hey(int N){
+        int[] result = new int[N];
+
+        for(int i = 0; i < result.length; i++){
+            result[i] = 2*(i+1);
+        }
+
+
+        return result;
     }
+
+    
 }
