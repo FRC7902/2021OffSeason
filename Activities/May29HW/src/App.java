@@ -59,7 +59,7 @@ public class App {
         }
 
         //Q6 Make a variable that any method can access
-        //not sure how to do
+        //not sure how to do or what this means
 
 
         //Q7 True or False, you can have methods with the same name.
@@ -67,9 +67,23 @@ public class App {
 
 
         //BONUS Make a method that takes in an array of integers and returns the sum of all the integers. 
+        public static int (int [] abcd) {
+            for (i = 0; i < abcd.length; i++) {
+                int ee = abcd[i] + ee;
+            }
+            return ee;
+        }
 
         //BONUS2 Make a method that takes in an array of integers and returns the greatest integer.
-
+        public static int (int [] azy) {
+            for (ii = 0; ii < azy.length; ii++) {
+                for (iii= ii + 1; iii < azy.length - 1; iii++) {
+                    if (azy [ii] > azy [iii]) {
+                        iii=ii;
+                    }
+                }
+                    return iii;
+        }
 
 
         //You're finished!
