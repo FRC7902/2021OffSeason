@@ -1,5 +1,17 @@
 public class Main {
     public static void main(String[] args) throws Exception {
+        Car car1 = new Car();
+        System.out.println(car1.numberOfWheels);
+        System.out.println(car1.colour);
+        System.out.println(car1.brand);
+        System.out.println(car1.name);
+    
+        car1.name = "centodieci";
+        System.out.println(car1.name);
+        System.out.println(car1.hasDriver);
+        System.out.println(Car.hasDriver);
+      }
+       
         /**
          * June26HW
          * 
@@ -30,3 +42,11 @@ public class Main {
          //All done!
     }
 }
+
+  class Car {
+    public int numberOfWheels = 4;
+    public String colour = "black";
+    public String brand = "Bugatti";
+    public String name = "La Voiture Noire";
+    public static boolean hasDriver = true;
+  }
