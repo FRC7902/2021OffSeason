@@ -1,0 +1,118 @@
+Answer the following questions
+If you don't know the answer, guess or put "idk" or something (don't search online)
+
+Push your changes when u have finished.
+
+Q1:
+Which is the right way to write a print statement:
+a) Systemoutprintln();
+b) System.out.println();
+c) system.out.println();
+d) System.Out.Println();
+e) None of the above
+Ans: b
+
+
+Q2:
+Which is the right way to make an integer variable:
+a) int = 1;
+b) int = (int) 1;
+c) int x = 1;
+d) x = (int) 1;
+e) None of the above
+Ans: c
+
+
+Q3:
+What will be the output of this code:
+int x = 1;
+System.out.println(23 + x);
+a) 24
+b) 1
+c) 23
+d) 231
+e) It will give an error
+Ans: a
+
+
+Q4:
+True or false: This will give an error
+int x = 3.21;
+a) True
+b) false
+c) The computer will explode
+Ans: a
+
+
+Q5:
+True or false: This will give an error
+double x = 3;
+a) True
+b) false
+c) The computer will explode
+Ans: b
+
+Q6:
+True or false: This will give an error
+int x = (int) 3.21;
+double x = 3;
+a) True
+b) false
+c) The computer will explode
+Ans: b
+
+Q7: 
+What is the output of this code:
+int x = 3;
+double y = 4.0;
+System.out.println(x/y);
+a) 0
+b) 1
+c) 0.0
+d) 1.0
+e) 0.75
+Ans: e
+
+Q8:
+What is the output of this code:
+System.out.println(4.0/2.0);
+a) 1
+b) 2
+c) 2.0
+d) 4
+Ans: c
+
+Q9: 
+True or False: This will give an error 
+System.
+out.println("Hello World");
+a) True
+b) False
+c) The computer will explode
+Ans: b
+
+
+Q10:
+What will be the output of this:
+double x = 1.0;
+System.out.println( ((int)x) / 2);
+a) 1
+b) 0
+c) 0.0
+d) 0.5
+e) None of the above
+Ans: b
+
+
+BONUS QUESTION:
+What will be the output of this:
+System.out.println( ((int)(4/2.0))  / (6/2)   )
+a) 2
+b) 2.0
+c) 3.0
+d) 1
+e) None of the above
+Ans: e
+
+
+

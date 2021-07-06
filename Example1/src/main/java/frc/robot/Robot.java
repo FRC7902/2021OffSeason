@@ -24,6 +24,19 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+//motors
+private final PWMSparkMax m_leftMotor_front = new PWMSparkMax(0);
+private final PWMSparkMax m_leftMotor_rear = new PWMSparkMax(1);
+private final PWMSparkMax m_rightMotor_front = new PWMSparkMax(2);
+private final PWMSparkMax m_rightMotor_rear = new PWMSparkMax(3);
+
+//joystick
+private final Joystick m_stick = new Joystick(0);
+
+//autonomous
+
+
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
