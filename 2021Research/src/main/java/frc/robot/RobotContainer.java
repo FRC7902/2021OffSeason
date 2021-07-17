@@ -35,10 +35,13 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
   private final CameraSubsystem m_robotCam = new CameraSubsystem();
+  private final CameraSubsystem m_robotCamLimeGreen = new CameraSubsystem(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
+  private final CameraSubsystem m_robotCamYellow = new CameraSubsystem(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
-  private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
+  private final TrackItem trackItemLimeGreen = new TrackItem(m_robotDrive, m_robotCamLimeGreen);
+  private final TrackItem trackItemYellow = new TrackItem(m_robotDrive, m_robotCamYellow);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -64,7 +67,8 @@ public class RobotContainer {
     );
 
     m_chooser.setDefaultOption("Drive Forward and Turn", driveForwardAndTurn);
-    m_chooser.addOption("Track Item", trackItem);
+    m_chooser.addOption("Track Item Lime Green", trackItemLimeGreen);
+    m_chooser.addOption("Track Item Yellow", trackItemYellow);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 

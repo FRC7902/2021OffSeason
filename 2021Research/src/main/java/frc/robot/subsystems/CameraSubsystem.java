@@ -28,12 +28,17 @@ public class CameraSubsystem extends SubsystemBase {
   private double centerY;
   private int contoursFound;
 
-  /** Creates a new CameraSubsystem. */
   public CameraSubsystem() {
-    enableVisionThread();
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+    camera.setResolution(640, 480);
   }
 
-  public void enableVisionThread(){
+  /** Creates a new CameraSubsystem. */
+  public CameraSubsystem(double hue1, double hue2, double sat1, double sat2, double lum1, double lum2) {
+    enableVisionThread(hue1, hue2, sat1, sat2, lum1, lum2);
+  }
+
+  public void enableVisionThread(double h1, double h2, double s1, double s2, double l1, double l2){
     gripPipeline = new GripPipeline();
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(640, 480);
@@ -58,7 +63,7 @@ public class CameraSubsystem extends SubsystemBase {
 
           if(runProcessing){
 
-            gripPipeline.process(mat);
+            gripPipeline.process(mat, h1, h2, s1, s2, l1, l2);
             contoursFound = gripPipeline.convexHullsOutput().size();
             SmartDashboard.putString("More vision state", "Saw " + contoursFound + " Contours");
 
