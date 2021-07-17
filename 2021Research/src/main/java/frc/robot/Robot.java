@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Drive Forward and Turn", "drive forward and turn");
     m_chooser.addOption("Track Item Lime Green", "lime green");
     m_chooser.addOption("Track Item Yellow", "yellow");
+
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
 
@@ -65,8 +68,10 @@ public class Robot extends TimedRobot {
     switch (m_chooser.getSelected()) {
       case "lime green":
         m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
+        break;
       case "yellow":
         m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
+        break;
     }
   }
 
