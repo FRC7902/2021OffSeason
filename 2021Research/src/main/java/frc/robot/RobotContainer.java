@@ -22,6 +22,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -35,6 +36,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
   private final CameraSubsystem m_robotCam = new CameraSubsystem();
+  private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
@@ -93,6 +95,10 @@ public class RobotContainer {
     new JoystickButton(m_stick, 4)
       .whenPressed(() -> m_robotArm.setMotor(-1))
       .whenReleased(() -> m_robotArm.setMotor(0));
+
+    new JoystickButton(m_stick, 5)
+      .whenPressed(() -> m_robotElevator.raise(1.0))
+      .whenReleased(() -> m_robotElevator.lower());
   }
 
   public DriveSubsystem getRobotDrive(){
@@ -102,6 +108,11 @@ public class RobotContainer {
   public CameraSubsystem getRobotCam(){
     return m_robotCam;
   }
+
+  public ElevatorSubsystem getRobotElevator() {
+    return m_robotElevator;
+  }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

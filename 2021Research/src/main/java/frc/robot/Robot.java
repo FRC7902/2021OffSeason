@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Track Item Yellow", "yellow");
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
+
+    m_robotContainer.getRobotElevator().setup();
   }
 
 
@@ -77,7 +79,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.getRobotElevator().disable();
+  }
 
   @Override
   public void disabledPeriodic() {}
