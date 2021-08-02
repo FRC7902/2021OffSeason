@@ -1,3 +1,5 @@
 Test doc
 - added item 3
+- added item 1
+- added item 2
 
