@@ -8,8 +8,8 @@ public class Main {
 
     car1.name = "centodieci";
     System.out.println(car1.name);
-    System.out.println(hasDriver);
     System.out.println(Car.hasDriver);
+
   }
 
   /**

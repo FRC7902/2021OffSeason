@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Example1 (in project Example1)",
+    "file": "/Users/parivansjalia/Documents/GitHub/2021OffSeasonTraining/Example1/build/libs/Example1.jar",
+    "extensions": [
+      "/Users/parivansjalia/Documents/GitHub/2021OffSeasonTraining/Example1/build/tmp/expandedArchives/halsim_gui-2021.2.2-osxx86-64.zip_f5561bcd7c4301ba6b8af8f98515ed37/osx/x86-64/shared/libhalsim_gui.dylib",
+      "/Users/parivansjalia/Documents/GitHub/2021OffSeasonTraining/Example1/build/tmp/expandedArchives/halsim_ds_socket-2021.2.2-osxx86-64.zip_481495b05ee77d5634c4cbd811983800/osx/x86-64/shared/libhalsim_ds_socket.dylib"
+    ],
+    "env": {},
+    "librarydir": "/Users/parivansjalia/Documents/GitHub/2021OffSeasonTraining/Example1/build/tmp/jniExtractDir",
+    "mainclass": "frc.robot.Main"
+  }
+]
