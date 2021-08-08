@@ -17,12 +17,12 @@ IN App.java,
 7. Have both of them introduce themselves
 8. Change one of their names 
 Question: Will the other Employee's name change?
-Ans: No
+Ans:
 
 9. Have both of them introduce themselves
 10. Change the company 
 Question: Will the other Employee's company change?
-Ans: Yes
+Ans:
 
 11. Have both of them introduce themselves
 

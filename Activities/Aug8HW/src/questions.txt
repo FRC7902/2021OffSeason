@@ -1,0 +1,20 @@
+questions
+
+FIRST, try to answer all the questions with no outside help. Once you've done that, go back and check your answers. 
+
+1. What does an inherited class share with its parent class?
+
+2. What is the keyword used for inheritance?
+
+3. What is polymorphism? How is it different from inheritance?
+
+4. Describe the steps needed to instantiate an inner class. 
+
+5. What can you not do with an abstract class?
+a) cannot be inherited from
+b) cannot be used to create an object
+c) cannot add any attributes or methods
+d) cannot have a constructor
+
+DONE!
+
