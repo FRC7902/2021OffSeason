@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DriveAndShoot;
 import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TrackItem;
@@ -19,6 +20,10 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.StorageSubsystem;
+import frc.robot.subsystems.TransferSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -37,8 +42,13 @@ public class RobotContainer {
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
   private final CameraSubsystem m_robotCam = new CameraSubsystem();
   private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
+  private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
+  private final StorageSubsystem m_robotStorage = new StorageSubsystem();
+  private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
+  private final ShooterSubsystem m_robotShoot = new ShooterSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final DriveAndShoot driveAndShoot = new DriveAndShoot(m_robotDrive, m_robotIntake, m_robotStorage, m_robotTransfer, m_robotShoot);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
   private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
@@ -47,7 +57,7 @@ public class RobotContainer {
   XboxController m_driverController = 
     new XboxController(0);
 
-  private final Joystick m_stick = new Joystick(0);
+  // private final Joystick m_stick = new Joystick(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -58,14 +68,18 @@ public class RobotContainer {
     m_robotDrive.setDefaultCommand(
 
       new RunCommand(
+
+        () -> m_robotDrive.drive(-m_driverController.getX(), m_driverController.getY())
+        , m_robotDrive)
         
-        () -> m_robotDrive.drive(-m_stick.getX(), m_stick.getY())
-      , m_robotDrive)
+      //   () -> m_robotDrive.drive(-m_stick.getX(), m_stick.getY())
+      // , m_robotDrive)
 
     
     );
 
-    m_chooser.setDefaultOption("Drive Forward and Turn", driveForwardAndTurn);
+    m_chooser.setDefaultOption("Drive and Shoot", driveAndShoot);
+    m_chooser.addOption("Drive Forward and Turn", driveForwardAndTurn);
     m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -80,25 +94,33 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(m_stick, 1)
-      .whileHeld(() -> m_robotArm.setArmAnglePIDF(30))
-      .whenReleased(()-> m_robotArm.setMotor(0));
+    new JoystickButton(m_driverController, Constants.RB)
+      .whileHeld(() -> m_robotShoot.shoot())
+      .whenReleased(() -> m_robotShoot.stap());
 
-    new JoystickButton(m_stick, 2)
-      .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d(5, 5, new Rotation2d())));
+    new JoystickButton(m_driverController, Constants.LB)
+      .whileHeld(() -> m_robotIntake.suck())
+      .whenReleased(() -> m_robotIntake.stop());
+
+    // new JoystickButton(m_stick, 1)
+    //   .whileHeld(() -> m_robotArm.setArmAnglePIDF(30))
+    //   .whenReleased(()-> m_robotArm.setMotor(0));
+
+    // new JoystickButton(m_stick, 2)
+    //   .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d(5, 5, new Rotation2d())));
 
 
-    new JoystickButton(m_stick, 3)
-      .whenPressed(() -> m_robotArm.setMotor(1))
-      .whenReleased(() -> m_robotArm.setMotor(0));
+    // new JoystickButton(m_stick, 3)
+    //   .whenPressed(() -> m_robotArm.setMotor(1))
+    //   .whenReleased(() -> m_robotArm.setMotor(0));
 
-    new JoystickButton(m_stick, 4)
-      .whenPressed(() -> m_robotArm.setMotor(-1))
-      .whenReleased(() -> m_robotArm.setMotor(0));
+    // new JoystickButton(m_stick, 4)
+    //   .whenPressed(() -> m_robotArm.setMotor(-1))
+    //   .whenReleased(() -> m_robotArm.setMotor(0));
 
-    new JoystickButton(m_stick, 5)
-      .whenPressed(() -> m_robotElevator.raise(1.0))
-      .whenReleased(() -> m_robotElevator.lower());
+    // new JoystickButton(m_stick, 5)
+    //   .whenPressed(() -> m_robotElevator.raise(1.0))
+    //   .whenReleased(() -> m_robotElevator.lower());
   }
 
   public DriveSubsystem getRobotDrive(){
