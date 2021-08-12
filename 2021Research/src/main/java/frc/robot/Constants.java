@@ -56,4 +56,67 @@ public final class Constants {
         public static final double kElevatorEncoderDistPerPulse =
             2.0 * Math.PI * kElevatorDrumRadius / 4096;
     }
+
+    public static final class IntakeConstants {
+        // Intake Controller
+        public static final int kIntake = 5;
+        // Solenoid
+        public static final int kFrontSolenoid = 1,
+                                kBackSolenoid = 2;
+        // Speed
+        public static final double kSpeed = 0.5;
+    }
+
+    public static final class StorageConstants {
+        // Storage Controller
+        public static final int kLeft = 2,
+                                kRight = 7;
+        // Speed
+        public static final double kSpeed = 0.4;
+    }
+
+    public static final class ShooterConstants {
+        // Shooting
+        public static final int LS = 11,
+                                RS = 12;
+        // Speed
+        public static final double kSpeed = 0.5;
+    }
+
+    public static final class TransferConstants {
+        // The transfer wheel
+        public static final int kTransfer = 10;
+        // Transfer Speed (Should be equal or less than shooter speed)
+        public static final double kTransferSpeed = ShooterConstants.kSpeed - 0.1;
+    }
+
+    /*
+   * Other stuff
+   */
+
+    // Joystick USB Slot
+    public static final int JOY = 0,
+    OP = 1;
+
+    // Joystick - Button
+    public static final int A = 1,
+                            B = 2,
+                            X = 3,
+                            Y = 4,
+                            LB = 5, // Bumper
+                            RB = 6, // Bumper
+                            M = 7, // menu
+                            S = 8, // start
+                            LA = 9, // Press Left axis
+                            RA = 10; // Press right axis
+
+    // Joystick - Axis
+    public static final int LX = 0,
+                            LY = 1,
+                            LT = 2, // Tigger
+                            RT = 3, // Tigger
+                            RX = 4,
+                            RY = 5, 
+                            PX = 6, // D-Pad
+                            PY = 7; // D-Pad
 }
