@@ -25,10 +25,10 @@ import edu.wpi.first.wpiutil.math.VecBuilder;
 
 public class ArmSubsystem extends SubsystemBase {
   //Speed controller
-  private final PWMSparkMax m_motor = new PWMSparkMax(4);
+  private final PWMSparkMax m_motor = new PWMSparkMax(5);
 
   //Encoder
-  private final Encoder m_encoder = new Encoder(4, 5);
+  private final Encoder m_encoder = new Encoder(6, 7);
 
   //Gearbox 
   private final DCMotor m_armGearbox = DCMotor.getVex775Pro(2);

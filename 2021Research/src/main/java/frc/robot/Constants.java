@@ -14,14 +14,14 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants {
-        public static final int kLeftMotor1Port = 0;
-        public static final int kLeftMotor2Port = 1;
-        public static final int kRightMotor1Port = 2;
-        public static final int kRightMotor2Port = 3;
+        public static final int kLeftMotor1Port = 3;
+        public static final int kLeftMotor2Port = 4;
+        public static final int kRightMotor1Port = 8;
+        public static final int kRightMotor2Port = 9;
 
 
-        public static final int[] kLeftEncoderPorts = {0, 1};
-        public static final int[] kRightEncoderPorts = {2, 3};
+        public static final int[] kLeftEncoderPorts = {0, 1, 2};
+        public static final int[] kRightEncoderPorts = {3, 4, 5};
 
         public static final int kEncoderCPR = 1024;
         public static final double kWheelDiameterMeters = 0.1524;
@@ -38,9 +38,9 @@ public final class Constants {
     }
 
     public static final class ElevatorConstants {
-        public static final int kMotorPort = 5;
-        public static final int kEncoderAChannel = 6;
-        public static final int kEncoderBChannel = 7;
+        public static final int kMotorPort = 6;
+        public static final int kEncoderAChannel = 8;
+        public static final int kEncoderBChannel = 9;
         public static final int kJoystickPort = 0;
 
         public static final double kElevatorKp = 5.0;
