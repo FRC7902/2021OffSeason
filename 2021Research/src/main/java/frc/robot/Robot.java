@@ -6,10 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +23,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +34,14 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_chooser.setDefaultOption("Drive Forward and Turn", "drive forward and turn");
+    m_chooser.addOption("Track Item Lime Green", "lime green");
+    m_chooser.addOption("Track Item Yellow", "yellow");
+
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
+
+    m_robotContainer.getRobotElevator().setup();
   }
 
 
@@ -55,11 +66,22 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    switch (m_chooser.getSelected()) {
+      case "lime green":
+        m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
+        break;
+      case "yellow":
+        m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
+        break;
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.getRobotElevator().disable();
+  }
 
   @Override
   public void disabledPeriodic() {}

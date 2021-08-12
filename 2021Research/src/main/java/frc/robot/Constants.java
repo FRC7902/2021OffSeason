@@ -30,12 +30,6 @@ public final class Constants {
 
         public static final double kTurnSpeed = 0.8;
         public static final double kSlowSpeed = 0.5;
-
-
-
-
-
-
     }
 
 
@@ -43,5 +37,23 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
     }
 
+    public static final class ElevatorConstants {
+        public static final int kMotorPort = 5;
+        public static final int kEncoderAChannel = 6;
+        public static final int kEncoderBChannel = 7;
+        public static final int kJoystickPort = 0;
 
+        public static final double kElevatorKp = 5.0;
+        public static final double kElevatorGearing = 10.0;
+        public static final double kElevatorDrumRadius = 0.0508;
+        public static final double kCarriageMass = 4.0; // kg
+
+        public static final double kMinElevatorHeight = 0.0;
+        public static final double kMaxElevatorHeight = 1.27;
+
+        // distance per pulse = (distance per revolution) / (pulses per revolution)
+        //  = (Pi * D) / ppr
+        public static final double kElevatorEncoderDistPerPulse =
+            2.0 * Math.PI * kElevatorDrumRadius / 4096;
+    }
 }

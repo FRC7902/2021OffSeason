@@ -12,7 +12,7 @@ public class TrackItem extends CommandBase {
   private final CameraSubsystem m_cameraSubsystem;
   private final DriveSubsystem m_driveSubsystem;
   /** Creates a new TrackItem. */
-  public TrackItem(DriveSubsystem driveSubsystem,CameraSubsystem cameraSubsystem) {
+  public TrackItem(DriveSubsystem driveSubsystem, CameraSubsystem cameraSubsystem) {
     m_cameraSubsystem = cameraSubsystem;
     m_driveSubsystem = driveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.

@@ -37,12 +37,12 @@ public class GripPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	public void process(Mat source0) {
+	public void process(Mat source0, double h1, double h2, double s1, double s2, double l1, double l2) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {28.0, 82.0};
-		double[] hslThresholdSaturation = {44.0, 255.0};
-		double[] hslThresholdLuminance = {71.0, 255.0};
+		double[] hslThresholdHue = {h1, h2};
+		double[] hslThresholdSaturation = {s1, s2};
+		double[] hslThresholdLuminance = {l1, l2};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
