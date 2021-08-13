@@ -40,8 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
    * Stop
    */
   public void stap() {
-    left.stopMotor();
-    right.stopMotor();
+    left.set(0);
+    right.set(0);
     status = "Stopped";
   }
 
@@ -49,5 +49,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putString("Shoot Status", (left.isAlive() == right.isAlive())? status : "Broken");
+
+    SmartDashboard.putNumber("Left Shooter", left.get());
+    SmartDashboard.putNumber("Right Shooter", right.get());
+
   }
 }

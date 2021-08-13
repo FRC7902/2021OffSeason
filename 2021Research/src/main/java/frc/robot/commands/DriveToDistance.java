@@ -16,7 +16,7 @@ public class DriveToDistance extends PIDCommand {
   public DriveToDistance(double targetDist, DriveSubsystem driveSubsystem) {
     super(
         // The controller that the command will use
-        new PIDController(15, 0, 0.25),
+        new PIDController(1, 0, 0),
         // This should return the measurement
         driveSubsystem::getAvgEncoderDistance,
         // This should return the setpoint (can also be a constant)
@@ -28,7 +28,7 @@ public class DriveToDistance extends PIDCommand {
         }, driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(0.00006, 0.001);
+    getController().setTolerance(0.01, 0.01);
   }
 
   // Returns true when the command should end.

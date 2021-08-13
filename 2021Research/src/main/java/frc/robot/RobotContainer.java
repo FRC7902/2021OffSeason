@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -15,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveAndShoot;
 import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeStoreAndTransfer;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.TrackItem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
@@ -39,9 +42,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final ArmSubsystem m_robotArm = new ArmSubsystem();
-  private final CameraSubsystem m_robotCam = new CameraSubsystem();
-  private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
+  // private final ArmSubsystem m_robotArm = new ArmSubsystem();
+  // private final CameraSubsystem m_robotCam = new CameraSubsystem();
+  // private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final StorageSubsystem m_robotStorage = new StorageSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
@@ -49,15 +52,16 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveAndShoot driveAndShoot = new DriveAndShoot(m_robotDrive, m_robotIntake, m_robotStorage, m_robotTransfer, m_robotShoot);
+  private final Shoot m_shoot = new Shoot(m_robotShoot, m_robotStorage, m_robotTransfer);
+  private final IntakeStoreAndTransfer m_intake = new IntakeStoreAndTransfer(m_robotIntake, m_robotStorage);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
-  private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
+  // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  XboxController m_driverController = 
-    new XboxController(0);
 
-  // private final Joystick m_stick = new Joystick(0);
+  private static Joystick driverStick = new Joystick(0);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -69,7 +73,7 @@ public class RobotContainer {
 
       new RunCommand(
 
-        () -> m_robotDrive.drive(-m_driverController.getX(), m_driverController.getY())  // NOT THE RIGHT METHODS
+        () -> m_robotDrive.drive(driverStick.getRawAxis(1), driverStick.getRawAxis((RobotBase.isReal()) ? 4 : 0))  
         , m_robotDrive)
         
       //   () -> m_robotDrive.drive(-m_stick.getX(), m_stick.getY())
@@ -80,7 +84,7 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption("Drive and Shoot", driveAndShoot);
     m_chooser.addOption("Drive Forward and Turn", driveForwardAndTurn);
-    m_chooser.addOption("Track Item", trackItem);
+    // m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
@@ -94,13 +98,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(m_driverController, Constants.RB)
-      .whileHeld(() -> m_robotShoot.shoot())
-      .whenReleased(() -> m_robotShoot.stap());
+    new JoystickButton(driverStick, Constants.RB)
+      .whileHeld(m_shoot);
 
-    new JoystickButton(m_driverController, Constants.LB)
-      .whileHeld(() -> m_robotIntake.suck())
-      .whenReleased(() -> m_robotIntake.stop());
+    new JoystickButton(driverStick, Constants.LB)
+      .whileHeld(m_intake);
 
     // new JoystickButton(m_stick, 1)
     //   .whileHeld(() -> m_robotArm.setArmAnglePIDF(30))
@@ -127,13 +129,17 @@ public class RobotContainer {
     return m_robotDrive;
   }
 
-  public CameraSubsystem getRobotCam(){
-    return m_robotCam;
+  public Joystick getDriverJoystick(){
+    return driverStick;
   }
 
-  public ElevatorSubsystem getRobotElevator() {
-    return m_robotElevator;
-  }
+  // public CameraSubsystem getRobotCam(){
+  //   return m_robotCam;
+  // }
+
+  // public ElevatorSubsystem getRobotElevator() {
+  //   return m_robotElevator;
+  // }
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

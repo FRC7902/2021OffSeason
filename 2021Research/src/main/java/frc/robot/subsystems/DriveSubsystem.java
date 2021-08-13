@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -44,7 +45,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final AnalogGyro m_gyro = new AnalogGyro(1);
 
   //Drive
-  private DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  private DifferentialDrive m_drive;
 
 
   //Simulation Stuff
@@ -64,26 +65,30 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
-
-
-    //Set up robot simulation
+    
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d(4, 5, new Rotation2d())); 
-    m_driveTrainSim = DifferentialDrivetrainSim.createKitbotSim(
-    KitbotMotor.kDualCIMPerSide, 
-    KitbotGearing.k10p71, 
-    KitbotWheelSize.SixInch, null);
-    m_fieldSim = new Field2d();
-    SmartDashboard.putData("Field", m_fieldSim);
 
-    //Connect the simulators with their counterparts
-    m_leftEncoderSim = new EncoderSim(m_leftEncoder);
-    m_rightEncoderSim = new EncoderSim(m_rightEncoder);
-    m_gyroSim = new AnalogGyroSim(m_gyro);
+    if(!RobotBase.isReal()){
+      //Set up robot simulation
+      m_driveTrainSim = DifferentialDrivetrainSim.createKitbotSim(
+      KitbotMotor.kDualCIMPerSide, 
+      KitbotGearing.k10p71, 
+      KitbotWheelSize.SixInch, null);
+      m_fieldSim = new Field2d();
+      SmartDashboard.putData("Field", m_fieldSim);
+
+      //Connect the simulators with their counterparts
+      m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+      m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+      m_gyroSim = new AnalogGyroSim(m_gyro);
+    }
+
 
     //Invert the speed controller groups
-    m_leftMotors.setInverted(true);
+    // m_leftMotors.setInverted(true);
     m_rightMotors.setInverted(true);
     
+    m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
   }
 
   @Override
@@ -100,6 +105,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Enc Distance", getAvgEncoderDistance());
     SmartDashboard.putNumber("Gyro Heading", getHeading());
+
 
   }
 
@@ -166,16 +172,32 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   //drive the robot
-  public void drive(double x, double y){
-    m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
-    m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
+  public void drive(double y, double x){
+    if(y == 0 && x == 0){
+      return;
+    }
+    // m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
+    // m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
+    // m_drive.arcadeDrive(x, -y);
+    if(RobotBase.isSimulation()){
+      y=-y;
+      x=-x;
+    }
+
+    x*=0.75;
+    
+    m_drive.arcadeDrive(x, y);
+
+    // driveRaw(x, y);
 
   }
 
   //set the motors to a specific speed
   public void driveRaw(double left, double right){
-    m_leftMotors.set(left);
-    m_rightMotors.set(right);
+    m_drive.arcadeDrive(0, left, false);
+    // m_leftMotors.set(left);
+    // m_rightMotors.set(right);
+
   }
 
   //reset the encoders

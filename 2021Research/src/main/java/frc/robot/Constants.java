@@ -28,7 +28,7 @@ public final class Constants {
         public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
 
-        public static final double kTurnSpeed = 0.8;
+        public static final double kTurnSpeed = 0.9;
         public static final double kSlowSpeed = 0.5;
     }
 

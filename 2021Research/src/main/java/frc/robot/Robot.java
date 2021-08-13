@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot {
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
-    m_robotContainer.getRobotElevator().setup();
+    // m_robotContainer.getRobotElevator().setup();
   }
 
 
@@ -67,20 +68,20 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    switch (m_chooser.getSelected()) {
-      case "lime green":
-        m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
-        break;
-      case "yellow":
-        m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
-        break;
-    }
+    // switch (m_chooser.getSelected()) {
+    //   case "lime green":
+    //     m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
+    //     break;
+    //   case "yellow":
+    //     m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
+    //     break;
+    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_robotContainer.getRobotElevator().disable();
+    // m_robotContainer.getRobotElevator().disable();
   }
 
   @Override
@@ -114,7 +115,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // m_robotContainer.getRobotDrive().drive(m_robotContainer.getDriverJoystick().getRawAxis(1), m_robotContainer.getDriverJoystick().getRawAxis((RobotBase.isReal()) ? 4 : 0));
+  }
 
   @Override
   public void testInit() {

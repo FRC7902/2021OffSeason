@@ -21,20 +21,14 @@ public class DriveTimeAndSpeed extends CommandBase {
 
     @Override
     public void execute() {
-        m_timer.reset();
-        m_timer.start();
-
-        if (m_timer.get() < m_time) {
-            m_driveSubsystem.driveRaw(m_speed, m_speed);
-        } else {
-            m_driveSubsystem.stopMotors();
-            m_timer.stop();
-        }
+        m_driveSubsystem.driveRaw(m_speed, m_speed);
     }
 
     @Override
     public void initialize() {
         m_driveSubsystem.stopMotors();
+        m_timer.reset();
+        m_timer.start();
     }
 
     @Override
@@ -44,6 +38,6 @@ public class DriveTimeAndSpeed extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return m_timer.get() > m_time;
     }
 }

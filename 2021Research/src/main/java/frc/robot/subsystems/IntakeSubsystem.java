@@ -20,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private PWMVictorSPX intakeMotor = new PWMVictorSPX(Constants.IntakeConstants.kIntake);
 
   // Solenoids
-  private DoubleSolenoid soleIntake = new DoubleSolenoid(Constants.IntakeConstants.kFrontSolenoid, Constants.IntakeConstants.kBackSolenoid);
+  // private DoubleSolenoid soleIntake = new DoubleSolenoid(Constants.IntakeConstants.kFrontSolenoid, Constants.IntakeConstants.kBackSolenoid);
 
   // Status
   private String status;
@@ -31,7 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
    */
   public IntakeSubsystem() {
     // Retract Pistons
-    soleIntake.set(DoubleSolenoid.Value.kOff);
+    // soleIntake.set(DoubleSolenoid.Value.kOff);
     isDeployed = false;
     // Set Status
     status = "Off";
@@ -63,7 +63,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // Prevent Multi-use
     if(isDeployed)
       return;
-    soleIntake.set(DoubleSolenoid.Value.kForward);
+    // soleIntake.set(DoubleSolenoid.Value.kForward);
     isDeployed = true;
   }
 
@@ -74,7 +74,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // Prevent Multi-use
     if(!isDeployed)
       return;
-    soleIntake.set(DoubleSolenoid.Value.kReverse);
+    // soleIntake.set(DoubleSolenoid.Value.kReverse);
     isDeployed = false;
   }
 
@@ -83,5 +83,6 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler 
     SmartDashboard.putString("Intake Status", (intakeMotor.isAlive())? status : "Broken");
     SmartDashboard.putString("Intake Deployment", isDeployed? "Deployed" : "Retracted");
+    SmartDashboard.putNumber("Intake Motor", intakeMotor.get());
   }
 }
