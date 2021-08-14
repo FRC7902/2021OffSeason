@@ -80,7 +80,7 @@ public final class Constants {
         public static final int LS = 11,
                                 RS = 12;
         // Speed
-        public static final double kSpeed = 0.5;
+        public static final double kSpeed = 0.7;
     }
 
     public static final class TransferConstants {

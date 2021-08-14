@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -33,8 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   //SpeedController Groups
-  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kLeftMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kLeftMotor2Port));
-  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kRightMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kRightMotor2Port));
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.DriveConstants.kLeftMotor1Port), new WPI_VictorSPX(Constants.DriveConstants.kLeftMotor2Port));
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.DriveConstants.kRightMotor1Port), new WPI_VictorSPX(Constants.DriveConstants.kRightMotor2Port));
 
 
   //Encoders
@@ -84,11 +87,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
 
-    //Invert the speed controller groups
-    // m_leftMotors.setInverted(true);
-    m_rightMotors.setInverted(true);
     
     m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+
+    m_leftMotors.setInverted(true);
   }
 
   @Override
@@ -167,9 +169,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   //stop the motors
   public void stopMotors(){
-    m_leftMotors.stopMotor();
-    m_rightMotors.stopMotor();
+    // m_leftMotors.stopMotor();
+    // m_rightMotors.stopMotor();
+    m_leftMotors.set(0);
+    m_rightMotors.set(0);
   }
+
 
   //drive the robot
   public void drive(double y, double x){
