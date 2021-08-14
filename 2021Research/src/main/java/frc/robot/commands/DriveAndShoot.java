@@ -9,11 +9,11 @@ public class DriveAndShoot extends SequentialCommandGroup {
 
             new ParallelRaceGroup(
                 // new DriveToDistance(3, driveSubsystem),
-                new DriveTimeAndSpeed(driveSubsystem, 2, 0.5),
+                new DriveTimeAndSpeed(driveSubsystem, 5, 0.3),
                 new IntakeStoreAndTransfer(intakeSubsystem, storageSubsystem)
             ),
             new Shoot(shooterSubsystem, storageSubsystem, transferSubsystem).withTimeout(5),
-            new DriveTimeAndSpeed(driveSubsystem, 2, -0.5)
+            new DriveTimeAndSpeed(driveSubsystem, 3, -0.5)
         );
     }
 }
