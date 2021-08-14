@@ -173,14 +173,15 @@ public class DriveSubsystem extends SubsystemBase {
     // m_rightMotors.stopMotor();
     m_leftMotors.set(0);
     m_rightMotors.set(0);
+
   }
 
 
   //drive the robot
   public void drive(double y, double x){
-    if(y == 0 && x == 0){
-      return;
-    }
+    // if(y == 0 && x == 0){
+    //   return;
+    // }
     // m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
     // m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
     // m_drive.arcadeDrive(x, -y);
