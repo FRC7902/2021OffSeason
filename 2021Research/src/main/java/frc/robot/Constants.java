@@ -72,7 +72,7 @@ public final class Constants {
         public static final int kLeft = 2,
                                 kRight = 7;
         // Speed
-        public static final double kSpeed = 0.4;
+        public static final double kSpeed = 0.5;
     }
 
     public static final class ShooterConstants {
@@ -80,7 +80,7 @@ public final class Constants {
         public static final int LS = 11,
                                 RS = 12;
         // Speed
-        public static final double kSpeed = 0.7;
+        public static final double kSpeed = 1;
     }
 
     public static final class TransferConstants {

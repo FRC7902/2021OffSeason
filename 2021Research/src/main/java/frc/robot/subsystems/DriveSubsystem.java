@@ -97,12 +97,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     //update the position of the robot
-    m_odometry.update( 
-      Rotation2d.fromDegrees(getHeading()),
-      m_leftEncoder.getDistance(),
-      m_rightEncoder.getDistance()
-    );
-    m_fieldSim.setRobotPose(getPose());
 
 
     SmartDashboard.putNumber("Enc Distance", getAvgEncoderDistance());
@@ -131,6 +125,12 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoderSim.setRate(m_driveTrainSim.getRightVelocityMetersPerSecond());
     m_gyroSim.setAngle(-m_driveTrainSim.getHeading().getDegrees());
 
+    m_odometry.update( 
+      Rotation2d.fromDegrees(getHeading()),
+      m_leftEncoder.getDistance(),
+      m_rightEncoder.getDistance()
+    );
+    m_fieldSim.setRobotPose(getPose());
 
 
   }
@@ -193,6 +193,7 @@ public class DriveSubsystem extends SubsystemBase {
     x*=0.75;
     
     m_drive.arcadeDrive(x, y);
+    
 
     // driveRaw(x, y);
 
