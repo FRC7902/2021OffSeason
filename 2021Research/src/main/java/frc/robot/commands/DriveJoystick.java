@@ -4,19 +4,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TrackItem extends CommandBase {
-  private final CameraSubsystem m_cameraSubsystem;
+public class DriveJoystick extends CommandBase {
   private final DriveSubsystem m_driveSubsystem;
-  /** Creates a new TrackItem. */
-  public TrackItem(DriveSubsystem driveSubsystem, CameraSubsystem cameraSubsystem) {
-    m_cameraSubsystem = cameraSubsystem;
+  private final Joystick m_driverJoystick;
+  /** Creates a new DriveJoystick. */
+  public DriveJoystick(DriveSubsystem driveSubsystem, Joystick driverJoystick) {
+    m_driverJoystick = driverJoystick;
     m_driveSubsystem = driveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(cameraSubsystem, driveSubsystem);
+
+    addRequirements(driveSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -28,16 +30,6 @@ public class TrackItem extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_cameraSubsystem.getNumContours() > 0){
-      if(m_cameraSubsystem.getCenterX() > 320){
-        m_driveSubsystem.driveRaw(-0.1, 0.1);
-
-      }else if (m_cameraSubsystem.getCenterX() < 320){
-        m_driveSubsystem.driveRaw(0.1, -0.1);
-      }else{
-        m_driveSubsystem.driveRaw(0,0);
-      }
-    }
   }
 
   // Called once the command ends or is interrupted.

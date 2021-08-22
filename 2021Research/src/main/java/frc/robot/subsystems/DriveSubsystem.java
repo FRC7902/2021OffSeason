@@ -4,9 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -32,19 +36,19 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   //SpeedController Groups
-  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kLeftMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kLeftMotor2Port));
-  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new PWMVictorSPX(Constants.DriveConstants.kRightMotor1Port), new PWMVictorSPX(Constants.DriveConstants.kRightMotor2Port));
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.DriveConstants.kLeftMotor1Port), new WPI_VictorSPX(Constants.DriveConstants.kLeftMotor2Port));
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.DriveConstants.kRightMotor1Port), new WPI_VictorSPX(Constants.DriveConstants.kRightMotor2Port));
 
 
   //Encoders
-  private final Encoder m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1]);
-  private final Encoder m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderPorts[0], Constants.DriveConstants.kRightEncoderPorts[1]);
+  private final Encoder m_leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1], Constants.DriveConstants.kLeftEncoderPorts[2]);
+  private final Encoder m_rightEncoder = new Encoder(Constants.DriveConstants.kRightEncoderPorts[0], Constants.DriveConstants.kRightEncoderPorts[1], Constants.DriveConstants.kRightEncoderPorts[2]);
 
   //Gyro
   private final AnalogGyro m_gyro = new AnalogGyro(1);
 
   //Drive
-  private DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  private DifferentialDrive m_drive;
 
 
   //Simulation Stuff
@@ -64,42 +68,40 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
-
-
-    //Set up robot simulation
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d(4, 5, new Rotation2d())); 
-    m_driveTrainSim = DifferentialDrivetrainSim.createKitbotSim(
-    KitbotMotor.kDualCIMPerSide, 
-    KitbotGearing.k10p71, 
-    KitbotWheelSize.SixInch, null);
-    m_fieldSim = new Field2d();
-    SmartDashboard.putData("Field", m_fieldSim);
-
-    //Connect the simulators with their counterparts
-    m_leftEncoderSim = new EncoderSim(m_leftEncoder);
-    m_rightEncoderSim = new EncoderSim(m_rightEncoder);
-    m_gyroSim = new AnalogGyroSim(m_gyro);
-
-    //Invert the speed controller groups
-    m_leftMotors.setInverted(true);
-    m_rightMotors.setInverted(true);
     
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d(4, 5, new Rotation2d())); 
+
+    if(!RobotBase.isReal()){
+      //Set up robot simulation
+      m_driveTrainSim = DifferentialDrivetrainSim.createKitbotSim(
+      KitbotMotor.kDualCIMPerSide, 
+      KitbotGearing.k10p71, 
+      KitbotWheelSize.SixInch, null);
+      m_fieldSim = new Field2d();
+      SmartDashboard.putData("Field", m_fieldSim);
+
+      //Connect the simulators with their counterparts
+      m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+      m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+      m_gyroSim = new AnalogGyroSim(m_gyro);
+    }
+
+
+    
+    m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+
+    m_leftMotors.setInverted(true);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //update the position of the robot
-    m_odometry.update( 
-      Rotation2d.fromDegrees(getHeading()),
-      m_leftEncoder.getDistance(),
-      m_rightEncoder.getDistance()
-    );
-    m_fieldSim.setRobotPose(getPose());
 
 
     SmartDashboard.putNumber("Enc Distance", getAvgEncoderDistance());
     SmartDashboard.putNumber("Gyro Heading", getHeading());
+
 
   }
 
@@ -123,6 +125,12 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoderSim.setRate(m_driveTrainSim.getRightVelocityMetersPerSecond());
     m_gyroSim.setAngle(-m_driveTrainSim.getHeading().getDegrees());
 
+    m_odometry.update( 
+      Rotation2d.fromDegrees(getHeading()),
+      m_leftEncoder.getDistance(),
+      m_rightEncoder.getDistance()
+    );
+    m_fieldSim.setRobotPose(getPose());
 
 
   }
@@ -161,21 +169,42 @@ public class DriveSubsystem extends SubsystemBase {
 
   //stop the motors
   public void stopMotors(){
-    m_leftMotors.stopMotor();
-    m_rightMotors.stopMotor();
+    // m_leftMotors.stopMotor();
+    // m_rightMotors.stopMotor();
+    m_leftMotors.set(0);
+    m_rightMotors.set(0);
+
   }
 
+
   //drive the robot
-  public void drive(double x, double y){
-    m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
-    m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
+  public void drive(double y, double x){
+    // if(y == 0 && x == 0){
+    //   return;
+    // }
+    // m_leftMotors.set(-y + x * Constants.DriveConstants.kTurnSpeed);
+    // m_rightMotors.set(-y-x * Constants.DriveConstants.kTurnSpeed);
+    // m_drive.arcadeDrive(x, -y);
+    if(RobotBase.isSimulation()){
+      y=-y;
+      x=-x;
+    }
+
+    x*=0.75;
+    
+    m_drive.arcadeDrive(x, y);
+    
+
+    // driveRaw(x, y);
 
   }
 
   //set the motors to a specific speed
   public void driveRaw(double left, double right){
-    m_leftMotors.set(left);
-    m_rightMotors.set(right);
+    m_drive.arcadeDrive(0, left, false);
+    // m_leftMotors.set(left);
+    // m_rightMotors.set(right);
+
   }
 
   //reset the encoders
