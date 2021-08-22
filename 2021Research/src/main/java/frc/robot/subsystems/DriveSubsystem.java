@@ -201,9 +201,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   //set the motors to a specific speed
   public void driveRaw(double left, double right){
-    m_drive.arcadeDrive(0, left, false);
-    // m_leftMotors.set(left);
-    // m_rightMotors.set(right);
+    // m_drive.arcadeDrive(0, left, false);
+    m_leftMotors.set(left);
+    m_rightMotors.set(right);
 
   }
 
