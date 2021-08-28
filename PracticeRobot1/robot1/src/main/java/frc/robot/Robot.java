@@ -34,6 +34,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class Robot extends TimedRobot {
   private final Joystick m_stick = new Joystick(0);
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(1));
+  private final Timer m_timer = new Timer();
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
