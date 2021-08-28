@@ -23,6 +23,12 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -31,6 +37,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(1));
+  private final Joystick m_stick = new Joystick(0);
+  private final Timer m_timer = new Timer();
+
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -97,6 +108,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {
+
     // connect the motors to update the drivetrain
     m_driveTrainSim.setInputs(m_leftMotors.get() * RobotController.getBatteryVoltage(),
         m_rightMotors.get() * RobotController.getBatteryVoltage());
@@ -138,10 +150,12 @@ public class Robot extends TimedRobot {
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
+        m_robotDrive.arcadeDrive(0.5, 0.0);
         break;
       case kDefaultAuto:
       default:
         // Put default auto code here
+        m_robotDrive.stopMotor();
         break;
     }
   }
@@ -154,6 +168,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
   /** This function is called once when the robot is disabled. */

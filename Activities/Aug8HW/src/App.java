@@ -14,11 +14,15 @@ public class App {
         System.out.println(tree1.getAge());
         System.out.println(tree1.setAge(99));
 
-
         cat cat1 = new cat();
     }
 
-    public array[] rectangle (int a, int b, int c, int d) {
-
+    public int[] rectangle(int x, int y, int height, int width) {
+        int xx = height / 2;
+        int yy = width / 2;
+        int xxx = xx + x;
+        int yyy = yy + y;
+        int[] i = { xxx, yyy };
+        return i;
     }
-    } 
+}
