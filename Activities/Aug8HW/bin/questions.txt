@@ -1,0 +1,26 @@
+questions
+
+FIRST, try to answer all the questions with no outside help. Once you've done that, go back and check your answers. 
+
+1. What does an inherited class share with its parent class?
+The attributes and methods in the parent class is shared with the child class.
+
+
+2. What is the keyword used for inheritance?
+extends
+
+3. What is polymorphism? How is it different from inheritance?
+polymorphism is when the method is overredied by the child class by overloading... i think.
+
+4. Describe the steps needed to instantiate an inner class. 
+class class1 = new class();
+class.inner class 2 = class.new class.inner();
+
+5. What can you not do with an abstract class?
+a) cannot be inherited from (you can)
+b) cannot be used to create an object (you cannot)
+c) cannot add any attributes or methods (there is no body)
+d) cannot have a constructor (yes can)
+
+DONE!
+

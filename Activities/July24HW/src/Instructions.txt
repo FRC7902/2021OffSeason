@@ -1,0 +1,39 @@
+
+July 24 Instructions
+
+1. Create a new class called Employee in a new file called Employee.java in src
+2. Add name, height, salary attributes. 
+Any class should be able to see the name attribute
+Any class within the same package should be able to see the salary attribute
+No external class should be able to see the height attribute
+
+3. Add a company attribute. This attribute should be shared among all Employees and any class should be able to see it.
+4. Add a constructor so you can assign a name, height, and salary upon initialization.
+5. Make a method that prints out an introduction including the name and company
+e.g "Hello, my name is <name>, an employee at <company>"
+
+IN App.java,
+6. Create 2 Employees, giving them different values for name, height and salary
+7. Have both of them introduce themselves
+8. Change one of their names 
+Question: Will the other Employee's name change?
+Ans:
+
+9. Have both of them introduce themselves
+10. Change the company 
+Question: Will the other Employee's company change?
+Ans:
+
+11. Have both of them introduce themselves
+
+12. Print out one of the employees salary
+13. Create a new package and put Employee.java in it 
+14. Resolve all errors (How can you make the salary attribute visible without changing the access modifier?)
+15. Make the salary attribute visible without changing the access modifier
+16. Do the same thing to the height attribute without changing the access modifier
+All done!
+
+If you have any questions, ask me. 
+
+
+

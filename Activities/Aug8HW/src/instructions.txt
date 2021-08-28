@@ -1,0 +1,30 @@
+August 8 HW
+
+1. Create a new file with a new class called Tree
+2. Give Tree a couple of attributes (at least one public, protected, private, and static attribute each) 
+Don't assign any values to the attributes yet
+3. Give Tree a constructor, where some attributes are assigned based on arguments passed in, and some attributes are assign constant values. (you decide)
+4. Give Tree a couple of methods which print out Tree's attributes (maybe it introduces itself)
+
+In App.java
+1. Create a Tree object, passing the appropriate data types in the constructor
+2. Directly access and print out some of the object's attributes
+3. Change one of the object's attributes
+4. Run some of the object's methods
+5. Use encapsulation to print out a private attribute
+6. Use encapsulation to change a private attribute
+
+1. Create a new package (make sure it's in src)
+2. Create a new file with a class in the package
+3. Give the class a couple of attributes and methods 
+4. Create an object of the class in App.java 
+
+
+BONUS
+In App.java, create a method which accepts an array with 4 integer values (the x coord of the bottom-left corner, y coord of the bottom-left corner, width, height), describing a rectangle 
+and returns an array with 2 integer values (the x coord of the center of the rectangle, the y coord of the center of the rectangle)
+
+
+Complete the questions in questions.txt, and you are done!
+
+
