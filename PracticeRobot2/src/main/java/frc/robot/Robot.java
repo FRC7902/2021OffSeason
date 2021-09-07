@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private final Timer m_timer = new Timer();
 
   // Encoders
   private final Encoder m_leftEncoder = new Encoder(0, 1, 2);
@@ -145,6 +146,10 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    m_robotDrive.arcadeDrive(m_stick.getX(), m_stick.getY());
+    m_timer.reset();
+    m_timer.start();
+
   }
 
   /** This function is called periodically during autonomous. */
@@ -157,6 +162,11 @@ public class Robot extends TimedRobot {
       case kDefaultAuto:
       default:
         // Put default auto code here
+        if (m_timer.get() < 3) {
+          m_robotDrive.arcadeDrive(0, 1);
+        } else {
+          m_robotDrive.arcadeDrive(0, 0);
+        }
         break;
     }
   }
@@ -169,6 +179,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    m_robotDrive.arcadeDrive(m_stick.getX(), m_stick.getY());
   }
 
   /** This function is called once when the robot is disabled. */
