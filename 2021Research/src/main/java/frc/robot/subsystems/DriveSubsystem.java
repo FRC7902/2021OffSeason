@@ -69,7 +69,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
     
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d(4, 5, new Rotation2d())); 
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d(15.1, 3.4, new Rotation2d(Math.PI))); 
+    // Position 2: 15.1, 3.4
+    // Position 3: 15.1, 2.2
+    
 
     if(!RobotBase.isReal()){
       //Set up robot simulation

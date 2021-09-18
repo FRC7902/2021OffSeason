@@ -18,6 +18,8 @@ import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeStoreAndTransfer;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.Start2Node2Datalink;
+import frc.robot.commands.Start3Node3Datalink;
 import frc.robot.commands.TrackItem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
@@ -55,6 +57,8 @@ public class RobotContainer {
   private final Shoot m_shoot = new Shoot(m_robotShoot, m_robotStorage, m_robotTransfer);
   private final IntakeStoreAndTransfer m_intake = new IntakeStoreAndTransfer(m_robotIntake, m_robotStorage);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
+  private final Start3Node3Datalink start3Node3Datalink = new Start3Node3Datalink(m_robotDrive);
+  private final Start2Node2Datalink start2Node2Datalink = new Start2Node2Datalink(m_robotDrive);
   // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -82,8 +86,10 @@ public class RobotContainer {
     
     );
 
-    m_chooser.setDefaultOption("Drive and Shoot", driveAndShoot);
+    m_chooser.addOption("Drive and Shoot", driveAndShoot);
     m_chooser.addOption("Drive Forward and Turn", driveForwardAndTurn);
+    m_chooser.addOption("Start3, Node3, Datalink", start3Node3Datalink);
+    m_chooser.setDefaultOption("Start2, Node2, Datalink", start2Node2Datalink);
     // m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);

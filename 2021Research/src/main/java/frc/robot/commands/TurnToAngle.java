@@ -24,13 +24,13 @@ public class TurnToAngle extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          driveSubsystem.driveRaw(output, -output);
+          driveSubsystem.arcadeDrive(output, 0);
         }, driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
     getController()
-        .setTolerance(0.001, 0.1);
+        .setTolerance(2, 1);
 
   }
 
