@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Position;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -60,7 +61,7 @@ public class DriveSubsystem extends SubsystemBase {
   public DifferentialDrivetrainSim m_driveTrainSim;
 
 
-
+  private Position currentPos = Position.RED3;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -156,10 +157,11 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   //reset the robots position
-  public void resetOdometry(Pose2d pose){
+  public void resetOdometry(Pose2d pose, double rad){
     resetEncoders();
     m_driveTrainSim.setPose(pose);
-    m_odometry.resetPosition(pose, new Rotation2d());
+    m_odometry.resetPosition(pose, new Rotation2d(rad));
+
 
   }
 
@@ -233,6 +235,41 @@ public class DriveSubsystem extends SubsystemBase {
   public Encoder getRightEncoder(){
     return m_rightEncoder;
   }
+
+  public void checkIfPosition(Position pos){
+    if(currentPos != pos){
+      switch (pos){
+        case RED1:
+          break;
+        case RED2:
+          setPosition(0.9, 3.4, 0);
+
+          break;
+        case RED3:
+          setPosition(0.9, 2.2, 0);
+          break;
+        case BLUE1:
+          break;
+        case BLUE2:
+          setPosition(15.1, 3.4, Math.PI);
+         
+          break;
+        case BLUE3:
+          setPosition(15.1, 2.2, Math.PI);
+          break;
+
+      }
+      currentPos = pos;
+    }
+  }
+
+  public void setPosition(double x, double y, double rad){
+    
+    
+    resetOdometry(new Pose2d(x, y, new Rotation2d()), rad);
+  }
+
+  
 
   //reset the gyro
   public void zeroHeading(){

@@ -11,21 +11,25 @@ import frc.robot.subsystems.DriveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Start3Node3Datalink extends SequentialCommandGroup {
-  /** Creates a new Start3Node3Datalink. */
-  public Start3Node3Datalink(DriveSubsystem driveSubsystem) {
+public class REDStart2Node2Datalink extends SequentialCommandGroup {
+  /** Creates a new BLUEStart2Node2Datalink. */
+  public REDStart2Node2Datalink(DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new WaitCommand(0),
-      new DriveToDistance(2.5, driveSubsystem),
+      new DriveToDistance(1.5, driveSubsystem),
       new TurnToAngle(90, driveSubsystem),
       new DriveToDistance(3, driveSubsystem),
+      new TurnToAngle(180, driveSubsystem),
+      new DriveToDistance(3.6, driveSubsystem),
       new WaitCommand(0),
       // new DumpGigabytes(),
-      new DriveToDistance(-0.75, driveSubsystem),
+      new DriveToDistance(0, driveSubsystem),
+      new TurnToAngle(-90, driveSubsystem),
+      new DriveToDistance(-0.4, driveSubsystem),
       new TurnToAngle(-180, driveSubsystem),
-      new DriveToDistance(-3.5, driveSubsystem)
+      new DriveToDistance(-1.3, driveSubsystem)
       // new DumpDatalink()
     );
   }
