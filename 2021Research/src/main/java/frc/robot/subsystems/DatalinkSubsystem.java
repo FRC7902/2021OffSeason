@@ -16,15 +16,21 @@ public class DatalinkSubsystem extends SubsystemBase {
         status = "Off";
     }
 
-    public void up() {
+    public void down() {
         if (!isDeployed) deploy();
         datalinkMotor.set(Constants.DatalinkConstants.kSpeed);
+        status = "Going down";
+    }
+
+    public void up() {
+        if (!isDeployed) deploy();
+        datalinkMotor.set(-Constants.DatalinkConstants.kSpeed);
         status = "Going up";
     }
 
-    public void down() {
+    public void stop() {
         datalinkMotor.stopMotor();;
-        status = "Going down";
+        status = "Stop";
     }
 
     public void deploy() {
