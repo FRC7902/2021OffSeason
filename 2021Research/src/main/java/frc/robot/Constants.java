@@ -59,7 +59,8 @@ public final class Constants {
 
     public static final class IntakeConstants {
         // Intake Controller
-        public static final int kIntake = 5;
+        public static final int kOne = 5;
+        public static final int kTwo = 13;
         // Solenoid
         public static final int kFrontSolenoid = 1,
                                 kBackSolenoid = 2;
@@ -88,6 +89,11 @@ public final class Constants {
         public static final int kTransfer = 10;
         // Transfer Speed (Should be equal or less than shooter speed)
         public static final double kTransferSpeed = ShooterConstants.kSpeed - 0.1;
+    }
+
+    public static final class DatalinkConstants {
+        public static final int kDatalink = 14;
+        public static final double kSpeed = 0.5;
     }
 
     /*

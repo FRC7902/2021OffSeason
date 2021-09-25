@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,7 +19,11 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
 
   // Intake Controllers
-  private WPI_VictorSPX intakeMotor = new WPI_VictorSPX(Constants.IntakeConstants.kIntake);
+  private WPI_VictorSPX intakeMotor1 = new WPI_VictorSPX(Constants.IntakeConstants.kOne);
+  private WPI_VictorSPX intakeMotor2 = new WPI_VictorSPX(Constants.IntakeConstants.kTwo);
+
+  // Speed controller group
+  private SpeedControllerGroup intakeMotors = new SpeedControllerGroup(intakeMotor1, intakeMotor2);
 
   // Solenoids
   // private DoubleSolenoid soleIntake = new DoubleSolenoid(Constants.IntakeConstants.kFrontSolenoid, Constants.IntakeConstants.kBackSolenoid);
@@ -45,7 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void suck() {
     if(!isDeployed)
       deploy();
-    intakeMotor.set(Constants.IntakeConstants.kSpeed);
+    intakeMotors.set(Constants.IntakeConstants.kSpeed);
     status = "Succing";
   }
 
@@ -53,7 +57,7 @@ public class IntakeSubsystem extends SubsystemBase {
    * Stop Sucking
    */
   public void stop() {
-    intakeMotor.stopMotor();
+    intakeMotors.stopMotor();
     status = "Off";
   }
 
@@ -83,8 +87,8 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler 
-    SmartDashboard.putString("Intake Status", (intakeMotor.isAlive())? status : "Broken");
+    // SmartDashboard.putString("Intake Status", (intakeMotors.isAlive())? status : "Broken");
     SmartDashboard.putString("Intake Deployment", isDeployed? "Deployed" : "Retracted");
-    SmartDashboard.putNumber("Intake Motor", intakeMotor.get());
+    SmartDashboard.putNumber("Intake Motor", intakeMotors.get());
   }
 }
