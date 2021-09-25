@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.REDStart2Node2Datalink;
+import frc.robot.commands.REDStart3Node3Datalink;
 import frc.robot.commands.DriveAndShoot;
 import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeStoreAndTransfer;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.BLUEStart2Node2Datalink;
+import frc.robot.commands.BLUEStart3Node3Datalink;
 import frc.robot.commands.TrackItem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
@@ -55,6 +59,10 @@ public class RobotContainer {
   private final Shoot m_shoot = new Shoot(m_robotShoot, m_robotStorage, m_robotTransfer);
   private final IntakeStoreAndTransfer m_intake = new IntakeStoreAndTransfer(m_robotIntake, m_robotStorage);
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
+  private final BLUEStart3Node3Datalink BLUEstart3Node3Datalink = new BLUEStart3Node3Datalink(m_robotDrive);
+  private final BLUEStart2Node2Datalink BLUEstart2Node2Datalink = new BLUEStart2Node2Datalink(m_robotDrive);
+  private final REDStart2Node2Datalink REDstart2Node2Datalink = new REDStart2Node2Datalink(m_robotDrive);
+  private final REDStart3Node3Datalink REDstart3Node3Datalink = new REDStart3Node3Datalink(m_robotDrive);
   // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -82,8 +90,12 @@ public class RobotContainer {
     
     );
 
-    m_chooser.setDefaultOption("Drive and Shoot", driveAndShoot);
+    m_chooser.addOption("Drive and Shoot", driveAndShoot);
     m_chooser.addOption("Drive Forward and Turn", driveForwardAndTurn);
+    m_chooser.addOption("BLUE Start3, Node3, Datalink", BLUEstart3Node3Datalink);
+    m_chooser.addOption("BLUE Start2, Node2, Datalink", BLUEstart2Node2Datalink);
+    m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
+    m_chooser.setDefaultOption("RED Start2, Node2, Datalink", REDstart2Node2Datalink);
     // m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);

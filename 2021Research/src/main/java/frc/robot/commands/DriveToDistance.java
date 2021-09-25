@@ -28,7 +28,7 @@ public class DriveToDistance extends PIDCommand {
         }, driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(0.01, 0.01);
+    getController().setTolerance(1, 0.1);
   }
 
   // Returns true when the command should end.

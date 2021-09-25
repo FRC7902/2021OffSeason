@@ -26,6 +26,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  SendableChooser<Position> m_posChooser = new SendableChooser<>();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -42,6 +44,14 @@ public class Robot extends TimedRobot {
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
+
+    m_posChooser.addOption("Red3", Position.RED3);
+    m_posChooser.setDefaultOption("Red2", Position.RED2);
+    m_posChooser.addOption("Blue2", Position.BLUE2);
+    m_posChooser.addOption("Blue3", Position.BLUE3);
+
+    Shuffleboard.getTab("Autonomous").add(m_posChooser);
+
     // m_robotContainer.getRobotElevator().setup();
   }
 
@@ -51,6 +61,9 @@ public class Robot extends TimedRobot {
     double drawCurrent = m_robotContainer.getRobotDrive().getDrawnCurrentAmps();
     double loadedVoltage = BatterySim.calculateDefaultBatteryLoadedVoltage(drawCurrent);
     RoboRioSim.setVInVoltage(loadedVoltage);
+
+
+    
   }
 
   /**
@@ -76,6 +89,10 @@ public class Robot extends TimedRobot {
     //     m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
     //     break;
     // }
+
+    m_robotContainer.getRobotDrive().checkIfPosition(m_posChooser.getSelected());
+
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
