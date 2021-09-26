@@ -151,6 +151,7 @@ public class DriveSubsystem extends SubsystemBase {
     return m_odometry.getPoseMeters();
   }
 
+
   //get the wheel speeds
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
@@ -163,6 +164,13 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry.resetPosition(pose, new Rotation2d(rad));
 
 
+  }
+
+  public void refreshOdometry(){
+    Pose2d pose = getPose();
+    resetEncoders();
+    m_driveTrainSim.setPose(pose);
+    m_odometry.resetPosition(pose, new Rotation2d(-pose.getRotation().getRadians())); 
   }
 
 
