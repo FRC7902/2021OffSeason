@@ -17,6 +17,7 @@ import frc.robot.commands.REDStart2Node2Datalink;
 import frc.robot.commands.REDStart3Node3Datalink;
 import frc.robot.commands.DriveAndShoot;
 import frc.robot.commands.DriveForwardAndTurn;
+import frc.robot.commands.DriveNoSumRoutine;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeStoreAndTransfer;
 import frc.robot.commands.Shoot;
@@ -63,6 +64,7 @@ public class RobotContainer {
   private final BLUEStart2Node2Datalink BLUEstart2Node2Datalink = new BLUEStart2Node2Datalink(m_robotDrive);
   private final REDStart2Node2Datalink REDstart2Node2Datalink = new REDStart2Node2Datalink(m_robotDrive);
   private final REDStart3Node3Datalink REDstart3Node3Datalink = new REDStart3Node3Datalink(m_robotDrive);
+  private final DriveNoSumRoutine driveNoSumRoutine = new DriveNoSumRoutine(m_robotDrive);
   // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -95,7 +97,9 @@ public class RobotContainer {
     m_chooser.addOption("BLUE Start3, Node3, Datalink", BLUEstart3Node3Datalink);
     m_chooser.addOption("BLUE Start2, Node2, Datalink", BLUEstart2Node2Datalink);
     m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
-    m_chooser.setDefaultOption("RED Start2, Node2, Datalink", REDstart2Node2Datalink);
+    m_chooser.addOption("RED Start2, Node2, Datalink", REDstart2Node2Datalink);
+
+    m_chooser.setDefaultOption("Drive NoSum", driveNoSumRoutine);
     // m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
