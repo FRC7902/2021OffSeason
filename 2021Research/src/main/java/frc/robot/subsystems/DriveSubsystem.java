@@ -248,19 +248,19 @@ public class DriveSubsystem extends SubsystemBase {
     if(currentPos != pos){
       switch (pos){
         case RED1:
+          setPosition(0.9, 6.5, 0);
           break;
         case RED2:
           setPosition(0.9, 3.4, 0);
-
           break;
         case RED3:
           setPosition(0.9, 2.2, 0);
           break;
         case BLUE1:
+          setPosition(15.1, 6.5, Math.PI);
           break;
         case BLUE2:
           setPosition(15.1, 3.4, Math.PI);
-         
           break;
         case BLUE3:
           setPosition(15.1, 2.2, Math.PI);
