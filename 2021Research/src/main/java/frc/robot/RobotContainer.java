@@ -52,9 +52,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  // private final ArmSubsystem m_robotArm = new ArmSubsystem();
-  // private final CameraSubsystem m_robotCam = new CameraSubsystem();
-  // private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
+  private final ArmSubsystem m_robotArm = new ArmSubsystem();
+  private final CameraSubsystem m_robotCam = new CameraSubsystem();
+  private final ElevatorSubsystem m_robotElevator = new ElevatorSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final StorageSubsystem m_robotStorage = new StorageSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
@@ -75,7 +75,7 @@ public class RobotContainer {
   private final REDStart1DatalinkNode2 REDstart1DatalinkNode2 = new REDStart1DatalinkNode2(m_robotDrive, m_robotDatalink, m_robotIntake);
   private final REDStart1DatalinkNode3 REDstart1DatalinkNode3 = new REDStart1DatalinkNode3(m_robotDrive, m_robotDatalink, m_robotIntake);
   private final DriveNoSumRoutine driveNoSumRoutine = new DriveNoSumRoutine(m_robotDrive);
-  // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
+  private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -113,7 +113,7 @@ public class RobotContainer {
     m_chooser.addOption("RED Start2, Node2, Datalink", REDstart2Node2Datalink);
     m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
 
-    // m_chooser.addOption("Track Item", trackItem);
+    m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
@@ -127,27 +127,27 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(driverStick, Constants.RB)
-      .whileHeld(m_shoot);
+    // new JoystickButton(driverStick, Constants.RB)
+    //   .whileHeld(m_shoot);
 
-    new JoystickButton(driverStick, Constants.LB)
-      .whileHeld(m_intake);
+    // new JoystickButton(driverStick, Constants.LB)
+    //   .whileHeld(m_intake);
 
-    // new JoystickButton(m_stick, 1)
-    //   .whileHeld(() -> m_robotArm.setArmAnglePIDF(30))
-    //   .whenReleased(()-> m_robotArm.setMotor(0));
+    new JoystickButton(driverStick, 1)
+      .whileHeld(() -> m_robotArm.setArmAnglePIDF(30))
+      .whenReleased(()-> m_robotArm.setMotor(0));
 
     // new JoystickButton(m_stick, 2)
     //   .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d(5, 5, new Rotation2d())));
 
 
-    // new JoystickButton(m_stick, 3)
-    //   .whenPressed(() -> m_robotArm.setMotor(1))
-    //   .whenReleased(() -> m_robotArm.setMotor(0));
+    new JoystickButton(driverStick, 3)
+      .whenPressed(() -> m_robotArm.setMotor(1))
+      .whenReleased(() -> m_robotArm.setMotor(0));
 
-    // new JoystickButton(m_stick, 4)
-    //   .whenPressed(() -> m_robotArm.setMotor(-1))
-    //   .whenReleased(() -> m_robotArm.setMotor(0));
+    new JoystickButton(driverStick, 4)
+      .whenPressed(() -> m_robotArm.setMotor(-1))
+      .whenReleased(() -> m_robotArm.setMotor(0));
 
     // new JoystickButton(m_stick, 5)
     //   .whenPressed(() -> m_robotElevator.raise(1.0))
@@ -162,9 +162,9 @@ public class RobotContainer {
     return driverStick;
   }
 
-  // public CameraSubsystem getRobotCam(){
-  //   return m_robotCam;
-  // }
+  public CameraSubsystem getRobotCam(){
+    return m_robotCam;
+  }
 
   // public ElevatorSubsystem getRobotElevator() {
   //   return m_robotElevator;

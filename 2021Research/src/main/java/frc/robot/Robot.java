@@ -83,14 +83,14 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    // switch (m_chooser.getSelected()) {
-    //   case "lime green":
-    //     m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
-    //     break;
-    //   case "yellow":
-    //     m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
-    //     break;
-    // }
+    switch (m_chooser.getSelected()) {
+      case "lime green":
+        m_robotContainer.getRobotCam().changeHSL(28.0, 82.0, 44.0, 255.0, 71.0, 255.0);
+        break;
+      case "yellow":
+        m_robotContainer.getRobotCam().changeHSL(14.0287744055549, 43.822529503103, 58.09352773127796, 202.78156996587032, 44.33453383205606, 149.11263351961207);
+        break;
+    }
 
     m_robotContainer.getRobotDrive().checkIfPosition(m_posChooser.getSelected());
 
