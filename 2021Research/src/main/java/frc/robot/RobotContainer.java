@@ -20,12 +20,17 @@ import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.DriveNoSumRoutine;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeStoreAndTransfer;
+import frc.robot.commands.REDStart1DatalinkNode2;
+import frc.robot.commands.REDStart1DatalinkNode3;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.BLUEStart1DatalinkNode2;
+import frc.robot.commands.BLUEStart1DatalinkNode3;
 import frc.robot.commands.BLUEStart2Node2Datalink;
 import frc.robot.commands.BLUEStart3Node3Datalink;
 import frc.robot.commands.TrackItem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
+import frc.robot.subsystems.DatalinkSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -54,6 +59,7 @@ public class RobotContainer {
   private final StorageSubsystem m_robotStorage = new StorageSubsystem();
   private final TransferSubsystem m_robotTransfer = new TransferSubsystem();
   private final ShooterSubsystem m_robotShoot = new ShooterSubsystem();
+  private final DatalinkSubsystem m_robotDatalink = new DatalinkSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveAndShoot driveAndShoot = new DriveAndShoot(m_robotDrive, m_robotIntake, m_robotStorage, m_robotTransfer, m_robotShoot);
@@ -62,8 +68,12 @@ public class RobotContainer {
   private final DriveForwardAndTurn driveForwardAndTurn = new DriveForwardAndTurn(m_robotDrive);
   private final BLUEStart3Node3Datalink BLUEstart3Node3Datalink = new BLUEStart3Node3Datalink(m_robotDrive);
   private final BLUEStart2Node2Datalink BLUEstart2Node2Datalink = new BLUEStart2Node2Datalink(m_robotDrive);
+  private final BLUEStart1DatalinkNode2 BLUEstart1DatalinkNode2 = new BLUEStart1DatalinkNode2(m_robotDrive, m_robotDatalink, m_robotIntake);
+  private final BLUEStart1DatalinkNode3 BLUEstart1DatalinkNode3 = new BLUEStart1DatalinkNode3(m_robotDrive, m_robotDatalink, m_robotIntake);
   private final REDStart2Node2Datalink REDstart2Node2Datalink = new REDStart2Node2Datalink(m_robotDrive);
   private final REDStart3Node3Datalink REDstart3Node3Datalink = new REDStart3Node3Datalink(m_robotDrive);
+  private final REDStart1DatalinkNode2 REDstart1DatalinkNode2 = new REDStart1DatalinkNode2(m_robotDrive, m_robotDatalink, m_robotIntake);
+  private final REDStart1DatalinkNode3 REDstart1DatalinkNode3 = new REDStart1DatalinkNode3(m_robotDrive, m_robotDatalink, m_robotIntake);
   private final DriveNoSumRoutine driveNoSumRoutine = new DriveNoSumRoutine(m_robotDrive);
   // private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
@@ -94,12 +104,15 @@ public class RobotContainer {
 
     m_chooser.addOption("Drive and Shoot", driveAndShoot);
     m_chooser.addOption("Drive Forward and Turn", driveForwardAndTurn);
-    m_chooser.addOption("BLUE Start3, Node3, Datalink", BLUEstart3Node3Datalink);
+    m_chooser.addOption("BLUE Start1, Datalink, Node2", BLUEstart1DatalinkNode2);
+    m_chooser.addOption("BLUE Start1, Datalink, Node3", BLUEstart1DatalinkNode3);
     m_chooser.addOption("BLUE Start2, Node2, Datalink", BLUEstart2Node2Datalink);
-    m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
+    m_chooser.addOption("BLUE Start3, Node3, Datalink", BLUEstart3Node3Datalink);
+    m_chooser.addOption("RED Start1, Datalink, Node2", REDstart1DatalinkNode2);
+    m_chooser.setDefaultOption("RED Start1, Datalink, Node3", REDstart1DatalinkNode3);
     m_chooser.addOption("RED Start2, Node2, Datalink", REDstart2Node2Datalink);
+    m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
 
-    m_chooser.setDefaultOption("Drive NoSum", driveNoSumRoutine);
     // m_chooser.addOption("Track Item", trackItem);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);

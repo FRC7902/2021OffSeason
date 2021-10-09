@@ -45,8 +45,10 @@ public class Robot extends TimedRobot {
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
 
+    m_posChooser.setDefaultOption("Red1", Position.RED1);
+    m_posChooser.addOption("Red2", Position.RED2);
     m_posChooser.addOption("Red3", Position.RED3);
-    m_posChooser.setDefaultOption("Red2", Position.RED2);
+    m_posChooser.addOption("Blue1", Position.BLUE1);
     m_posChooser.addOption("Blue2", Position.BLUE2);
     m_posChooser.addOption("Blue3", Position.BLUE3);
 

@@ -49,8 +49,18 @@ public class IntakeSubsystem extends SubsystemBase {
   public void suck() {
     if(!isDeployed)
       deploy();
-    intakeMotors.set(Constants.IntakeConstants.kSpeed);
-    status = "Succing";
+    intakeMotor1.set(Constants.IntakeConstants.kSpeed);
+    intakeMotor2.set(-Constants.IntakeConstants.kSpeed);
+    status = "Sucking";
+  }
+
+  public void release() {
+    if (!isDeployed) {
+      deploy();
+    }
+    intakeMotor1.set(-Constants.IntakeConstants.kSpeed);
+    intakeMotor2.set(Constants.IntakeConstants.kSpeed);
+    status = "Releasing";
   }
 
   /**
@@ -87,8 +97,8 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler 
-    // SmartDashboard.putString("Intake Status", (intakeMotors.isAlive())? status : "Broken");
-    SmartDashboard.putString("Intake Deployment", isDeployed? "Deployed" : "Retracted");
+    SmartDashboard.putString("Intake Status", (intakeMotor1.isAlive() && intakeMotor2.isAlive()) ? status : "Broken");
+    SmartDashboard.putString("Intake Deployment", isDeployed ? "Deployed" : "Retracted");
     SmartDashboard.putNumber("Intake Motor", intakeMotors.get());
   }
 }
