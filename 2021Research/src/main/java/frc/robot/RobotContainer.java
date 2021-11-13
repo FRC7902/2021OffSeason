@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.REDStart2Node2Datalink;
 import frc.robot.commands.REDStart3Node3Datalink;
 import frc.robot.commands.DriveAndShoot;
+import frc.robot.commands.DriveForward;
 import frc.robot.commands.DriveForwardAndTurn;
 import frc.robot.commands.DriveNoSumRoutine;
 import frc.robot.commands.ExampleCommand;
@@ -77,6 +78,8 @@ public class RobotContainer {
   private final DriveNoSumRoutine driveNoSumRoutine = new DriveNoSumRoutine(m_robotDrive);
   private final TrackItem trackItem = new TrackItem(m_robotDrive, m_robotCam);
 
+  private final DriveForward driveForward = new DriveForward(m_robotDrive, 4, 0.5);
+
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -114,6 +117,7 @@ public class RobotContainer {
     m_chooser.addOption("RED Start3, Node3, Datalink", REDstart3Node3Datalink);
 
     m_chooser.addOption("Track Item", trackItem);
+    m_chooser.addOption("Drive Forward 1/2 speed 4 seconds", driveForward);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
 
@@ -148,6 +152,9 @@ public class RobotContainer {
     new JoystickButton(driverStick, 4)
       .whenPressed(() -> m_robotArm.setMotor(-1))
       .whenReleased(() -> m_robotArm.setMotor(0));
+
+    new JoystickButton(driverStick, 5)
+      .whenPressed(driveForward);
 
     // new JoystickButton(m_stick, 5)
     //   .whenPressed(() -> m_robotElevator.raise(1.0))
